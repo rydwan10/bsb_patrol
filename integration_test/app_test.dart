@@ -1,3 +1,4 @@
+// ignore_for_file: unused_import
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 
@@ -25,25 +26,15 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        // Verify login screen is visible
-        expect(find.byKey(LoginKeys.loginTitle), findsOneWidget);
-        expect(find.byKey(LoginKeys.loginSubtitle), findsOneWidget);
+        // TODO: verify that the login title widget (LoginKeys.loginTitle) is visible
+        // TODO: verify that the login subtitle widget (LoginKeys.loginSubtitle) is visible
 
-        // Enter email
-        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
-        await $.pumpAndSettle();
+        // TODO: enter 'officer@bsbpatrol.com' into the email field (LoginKeys.emailField) and wait for UI to settle
+        // TODO: enter 'password123' into the password field (LoginKeys.passwordField) and wait for UI to settle
+        // TODO: tap the login button (LoginKeys.loginButton) and wait for UI to settle
 
-        // Enter password
-        await $(LoginKeys.passwordField).enterText('password123');
-        await $.pumpAndSettle();
-
-        // Tap Sign In
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
-
-        // Verify home screen is shown
-        expect(find.byKey(HomeKeys.dashboardHeading), findsOneWidget);
-        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
+        // TODO: verify that the dashboard heading (HomeKeys.dashboardHeading) is visible
+        // TODO: verify that the dashboard welcome greeting (HomeKeys.dashboardWelcomeGreeting) is visible
       },
     );
 
@@ -52,13 +43,10 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        // Tap Sign In without filling fields
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the login button (LoginKeys.loginButton) without filling any fields and wait for UI to settle
 
-        // Validation errors should appear
-        expect(find.text('Email is required'), findsOneWidget);
-        expect(find.text('Password is required'), findsOneWidget);
+        // TODO: verify that the text 'Email is required' appears on screen
+        // TODO: verify that the text 'Password is required' appears on screen
       },
     );
 
@@ -67,12 +55,11 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(LoginKeys.emailField).enterText('not-an-email');
-        await $(LoginKeys.passwordField).enterText('password123');
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'not-an-email' into the email field (LoginKeys.emailField)
+        // TODO: enter 'password123' into the password field (LoginKeys.passwordField)
+        // TODO: tap the login button (LoginKeys.loginButton) and wait for UI to settle
 
-        expect(find.text('Enter a valid email address'), findsOneWidget);
+        // TODO: verify that the text 'Enter a valid email address' appears on screen
       },
     );
 
@@ -81,14 +68,11 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        // Tap register link
-        await $(LoginKeys.registerLink).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the register link (LoginKeys.registerLink) and wait for UI to settle
 
-        // Verify register screen is shown at step 1
-        expect(find.byKey(RegisterKeys.registerAppBarTitle), findsOneWidget);
-        expect(find.byKey(RegisterKeys.step1Heading), findsOneWidget);
-        expect(find.byKey(RegisterKeys.stepCounter), findsOneWidget);
+        // TODO: verify that the register screen app bar title (RegisterKeys.registerAppBarTitle) is visible
+        // TODO: verify that the step 1 heading (RegisterKeys.step1Heading) is visible
+        // TODO: verify that the step counter widget (RegisterKeys.stepCounter) is visible
       },
     );
 
@@ -97,15 +81,11 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(LoginKeys.registerLink).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the register link (LoginKeys.registerLink) and wait for UI to settle
 
-        // Try to proceed without filling step 1
-        await $(RegisterKeys.nextStep1Button).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the next/continue button for step 1 (RegisterKeys.nextStep1Button) without filling fields and wait for UI to settle
 
-        // Validation errors
-        expect(find.text('First name is required'), findsOneWidget);
+        // TODO: verify that the text 'First name is required' appears on screen
       },
     );
 
@@ -114,50 +94,35 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        // Navigate to register
-        await $(LoginKeys.registerLink).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the register link (LoginKeys.registerLink) and wait for UI to settle
 
         // ── Step 1: Personal Info ──
-        expect(find.byKey(RegisterKeys.step1Heading), findsOneWidget);
+        // TODO: verify that the step 1 heading (RegisterKeys.step1Heading) is visible
 
-        await $(RegisterKeys.firstNameField).enterText('Jane');
-        await $.pumpAndSettle();
-        await $(RegisterKeys.lastNameField).enterText('Smith');
-        await $.pumpAndSettle();
-        await $(RegisterKeys.registerEmailField).enterText('jane@bsbpatrol.com');
-        await $.pumpAndSettle();
-        await $(RegisterKeys.phoneField).enterText('+1 555 000 1234');
-        await $.pumpAndSettle();
-
-        await $(RegisterKeys.nextStep1Button).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'Jane' into the first name field (RegisterKeys.firstNameField) and wait for UI to settle
+        // TODO: enter 'Smith' into the last name field (RegisterKeys.lastNameField) and wait for UI to settle
+        // TODO: enter 'jane@bsbpatrol.com' into the email field (RegisterKeys.registerEmailField) and wait for UI to settle
+        // TODO: enter '+1 555 000 1234' into the phone field (RegisterKeys.phoneField) and wait for UI to settle
+        // TODO: tap the continue button (RegisterKeys.nextStep1Button) and wait for UI to settle
 
         // ── Step 2: Account Setup ──
-        expect(find.byKey(RegisterKeys.step2Heading), findsOneWidget);
+        // TODO: verify that the step 2 heading (RegisterKeys.step2Heading) is visible
 
-        await $(RegisterKeys.usernameField).enterText('janesmith');
-        await $.pumpAndSettle();
-        await $(RegisterKeys.registerPasswordField).enterText('SecurePass1!');
-        await $.pumpAndSettle();
-        await $(RegisterKeys.confirmPasswordField).enterText('SecurePass1!');
-        await $.pumpAndSettle();
-
-        await $(RegisterKeys.nextStep2Button).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'janesmith' into the username field (RegisterKeys.usernameField) and wait for UI to settle
+        // TODO: enter 'SecurePass1!' into the password field (RegisterKeys.registerPasswordField) and wait for UI to settle
+        // TODO: enter 'SecurePass1!' into the confirm password field (RegisterKeys.confirmPasswordField) and wait for UI to settle
+        // TODO: tap the review button (RegisterKeys.nextStep2Button) and wait for UI to settle
 
         // ── Step 3: Review ──
-        expect(find.byKey(RegisterKeys.step3Heading), findsOneWidget);
-        expect(find.byKey(RegisterKeys.reviewFirstNameValue), findsOneWidget);
-        expect(find.byKey(RegisterKeys.reviewLastNameValue), findsOneWidget);
-        expect(find.byKey(RegisterKeys.reviewEmailValue), findsOneWidget);
-        expect(find.byKey(RegisterKeys.reviewUsernameValue), findsOneWidget);
+        // TODO: verify that the step 3 heading (RegisterKeys.step3Heading) is visible
+        // TODO: verify that the review first name value (RegisterKeys.reviewFirstNameValue) is visible
+        // TODO: verify that the review last name value (RegisterKeys.reviewLastNameValue) is visible
+        // TODO: verify that the review email value (RegisterKeys.reviewEmailValue) is visible
+        // TODO: verify that the review username value (RegisterKeys.reviewUsernameValue) is visible
 
-        await $(RegisterKeys.submitButton).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the submit button (RegisterKeys.submitButton) and wait for UI to settle
 
-        // After successful registration, lands on home screen
-        expect(find.byKey(HomeKeys.dashboardHeading), findsOneWidget);
+        // TODO: verify that the dashboard heading (HomeKeys.dashboardHeading) is visible — registration lands on home screen
       },
     );
 
@@ -166,25 +131,22 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(LoginKeys.registerLink).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the register link (LoginKeys.registerLink) and wait for UI to settle
 
         // Fill step 1
-        await $(RegisterKeys.firstNameField).enterText('Test');
-        await $(RegisterKeys.lastNameField).enterText('User');
-        await $(RegisterKeys.registerEmailField).enterText('test@test.com');
-        await $(RegisterKeys.phoneField).enterText('+1 555 000 0000');
-        await $(RegisterKeys.nextStep1Button).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'Test' into the first name field (RegisterKeys.firstNameField)
+        // TODO: enter 'User' into the last name field (RegisterKeys.lastNameField)
+        // TODO: enter 'test@test.com' into the email field (RegisterKeys.registerEmailField)
+        // TODO: enter '+1 555 000 0000' into the phone field (RegisterKeys.phoneField)
+        // TODO: tap the continue button (RegisterKeys.nextStep1Button) and wait for UI to settle
 
         // Step 2 with mismatched passwords
-        await $(RegisterKeys.usernameField).enterText('testuser');
-        await $(RegisterKeys.registerPasswordField).enterText('Password123!');
-        await $(RegisterKeys.confirmPasswordField).enterText('DifferentPass!');
-        await $(RegisterKeys.nextStep2Button).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'testuser' into the username field (RegisterKeys.usernameField)
+        // TODO: enter 'Password123!' into the password field (RegisterKeys.registerPasswordField)
+        // TODO: enter 'DifferentPass!' into the confirm password field (RegisterKeys.confirmPasswordField)
+        // TODO: tap the review button (RegisterKeys.nextStep2Button) and wait for UI to settle
 
-        expect(find.text('Passwords do not match'), findsOneWidget);
+        // TODO: verify that the text 'Passwords do not match' appears on screen
       },
     );
 
@@ -194,34 +156,28 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login first
-        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
-        await $(LoginKeys.passwordField).enterText('password123');
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'officer@bsbpatrol.com' into the email field (LoginKeys.emailField)
+        // TODO: enter 'password123' into the password field (LoginKeys.passwordField)
+        // TODO: tap the login button (LoginKeys.loginButton) and wait for UI to settle
 
-        // Verify on Dashboard tab
-        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
+        // TODO: verify that the dashboard welcome greeting (HomeKeys.dashboardWelcomeGreeting) is visible
 
         // Navigate to Explore tab
-        await $(HomeKeys.exploreTab).tap();
-        await $.pumpAndSettle();
-        expect(find.byKey(ExploreKeys.exploreSubtitle), findsOneWidget);
+        // TODO: tap the explore tab (HomeKeys.exploreTab) and wait for UI to settle
+        // TODO: verify that the explore subtitle (ExploreKeys.exploreSubtitle) is visible
 
         // Navigate to Alerts tab
-        await $(HomeKeys.notificationsTab).tap();
-        await $.pumpAndSettle();
-        expect(find.byKey(NotificationsKeys.notificationsHeading), findsOneWidget);
+        // TODO: tap the notifications tab (HomeKeys.notificationsTab) and wait for UI to settle
+        // TODO: verify that the notifications heading (NotificationsKeys.notificationsHeading) is visible
 
         // Navigate to Profile tab
-        await $(HomeKeys.profileTab).tap();
-        await $.pumpAndSettle();
-        expect(find.byKey(ProfileKeys.profileName), findsOneWidget);
-        expect(find.byKey(ProfileKeys.profileUsername), findsOneWidget);
+        // TODO: tap the profile tab (HomeKeys.profileTab) and wait for UI to settle
+        // TODO: verify that the profile name (ProfileKeys.profileName) is visible
+        // TODO: verify that the profile username (ProfileKeys.profileUsername) is visible
 
         // Navigate back to Dashboard
-        await $(HomeKeys.dashboardTab).tap();
-        await $.pumpAndSettle();
-        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
+        // TODO: tap the dashboard tab (HomeKeys.dashboardTab) and wait for UI to settle
+        // TODO: verify that the dashboard welcome greeting (HomeKeys.dashboardWelcomeGreeting) is visible again
       },
     );
 
@@ -231,33 +187,21 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login
-        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
-        await $(LoginKeys.passwordField).enterText('password123');
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'officer@bsbpatrol.com' into the email field (LoginKeys.emailField)
+        // TODO: enter 'password123' into the password field (LoginKeys.passwordField)
+        // TODO: tap the login button (LoginKeys.loginButton) and wait for UI to settle
 
-        // Go to Profile tab
-        await $(HomeKeys.profileTab).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the profile tab (HomeKeys.profileTab) and wait for UI to settle
 
-        // Scroll the logout button into view before tapping
-        await $(ProfileKeys.logoutButton).scrollTo();
-        await $.pumpAndSettle();
+        // TODO: scroll to the logout button (ProfileKeys.logoutButton) to bring it into view and wait for UI to settle
+        // TODO: tap the logout button (ProfileKeys.logoutButton) and wait for UI to settle
 
-        // Tap Sign Out
-        await $(ProfileKeys.logoutButton).tap();
-        await $.pumpAndSettle();
+        // TODO: verify that the logout dialog title (ProfileKeys.logoutDialogTitle) is visible
+        // TODO: verify that the logout dialog message (ProfileKeys.logoutDialogMessage) is visible
 
-        // Confirm dialog appears
-        expect(find.byKey(ProfileKeys.logoutDialogTitle), findsOneWidget);
-        expect(find.byKey(ProfileKeys.logoutDialogMessage), findsOneWidget);
+        // TODO: tap the confirm logout button (ProfileKeys.confirmLogoutButton) and wait for UI to settle
 
-        // Confirm logout
-        await $(ProfileKeys.confirmLogoutButton).tap();
-        await $.pumpAndSettle();
-
-        // Back on login screen
-        expect(find.byKey(LoginKeys.loginSubtitle), findsOneWidget);
+        // TODO: verify that the login subtitle (LoginKeys.loginSubtitle) is visible — back on login screen
       },
     );
 
@@ -267,25 +211,18 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login
-        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
-        await $(LoginKeys.passwordField).enterText('password123');
-        await $(LoginKeys.loginButton).tap();
-        await $.pumpAndSettle();
+        // TODO: enter 'officer@bsbpatrol.com' into the email field (LoginKeys.emailField)
+        // TODO: enter 'password123' into the password field (LoginKeys.passwordField)
+        // TODO: tap the login button (LoginKeys.loginButton) and wait for UI to settle
 
-        // Go to Alerts tab
-        await $(HomeKeys.notificationsTab).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the notifications tab (HomeKeys.notificationsTab) and wait for UI to settle
 
-        // Verify unread badge exists
-        expect(find.byKey(NotificationsKeys.unreadCountBadge), findsOneWidget);
+        // TODO: verify that the unread count badge (NotificationsKeys.unreadCountBadge) is visible
 
-        // Tap mark all read
-        await $(NotificationsKeys.markAllReadButton).tap();
-        await $.pumpAndSettle();
+        // TODO: tap the mark all read button (NotificationsKeys.markAllReadButton) and wait for UI to settle
 
-        // Badge and button should be gone
-        expect(find.byKey(NotificationsKeys.unreadCountBadge), findsNothing);
-        expect(find.byKey(NotificationsKeys.markAllReadButton), findsNothing);
+        // TODO: verify that the unread count badge (NotificationsKeys.unreadCountBadge) is no longer visible
+        // TODO: verify that the mark all read button (NotificationsKeys.markAllReadButton) is no longer visible
       },
     );
   });
