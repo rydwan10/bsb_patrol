@@ -1,0 +1,33 @@
+name: bsb_patrol
+description: "BSB Patrol demo app with Patrol integration tests."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shadcn_ui: ^0.46.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  patrol: ^4.1.1
+
+patrol:
+  app_name: BSB Patrol
+  test_directory: integration_test
+  android:
+    package_name: com.example.bsb_patrol
+  ios:
+    bundle_id: com.example.bsbPatrol
+
+flutter:
+  uses-material-design: true
