@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../../keys/patrol_keys_notifications.dart';
+
 class NotificationsTab extends StatefulWidget {
   const NotificationsTab({super.key});
 
@@ -87,10 +89,11 @@ class _NotificationsTabState extends State<NotificationsTab> {
                 children: [
                   Row(
                     children: [
-                      Text('Notifications', style: theme.textTheme.h3),
+                      Text(key: NotificationsKeys.notificationsHeading, 'Notifications', style: theme.textTheme.h3),
                       if (_unreadCount > 0) ...[
                         const SizedBox(width: 8),
                         ShadBadge(
+                          key: NotificationsKeys.unreadCountBadge,
                           child: Text('$_unreadCount new'),
                         ),
                       ],
@@ -102,6 +105,7 @@ class _NotificationsTabState extends State<NotificationsTab> {
               ),
               if (_unreadCount > 0)
                 ShadButton.ghost(
+                  key: NotificationsKeys.markAllReadButton,
                   size: ShadButtonSize.sm,
                   onPressed: _markAllRead,
                   child: const Text('Mark all read'),

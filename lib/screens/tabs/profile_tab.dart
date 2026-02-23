@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../../keys/patrol_keys_profile.dart';
 import '../login_screen.dart';
 
 class ProfileTab extends StatelessWidget {
@@ -41,7 +42,7 @@ class ProfileTab extends StatelessWidget {
           ]),
           const SizedBox(height: 24),
           ShadButton.destructive(
-            key: const Key('logoutButton'),
+            key: ProfileKeys.logoutButton,
             width: double.infinity,
             onPressed: () => _showLogoutDialog(context),
             child: Row(
@@ -83,9 +84,9 @@ class ProfileTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text('John Doe', style: theme.textTheme.h4),
+            Text(key: ProfileKeys.profileName, 'John Doe', style: theme.textTheme.h4),
             const SizedBox(height: 4),
-            Text('@johndoe', style: theme.textTheme.muted),
+            Text(key: ProfileKeys.profileUsername, '@johndoe', style: theme.textTheme.muted),
             const SizedBox(height: 8),
             ShadBadge(
               child: Row(
@@ -204,17 +205,19 @@ class ProfileTab extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showShadDialog(
       context: context,
-      builder: (context) => ShadDialog(
-        title: const Text('Sign Out'),
-        description:
-            const Text('Are you sure you want to sign out of BSB Patrol?'),
+        builder: (context) => ShadDialog(
+        title: const Text(key: ProfileKeys.logoutDialogTitle, 'Sign Out'),
+        description: const Text(
+          key: ProfileKeys.logoutDialogMessage,
+          'Are you sure you want to sign out of BSB Patrol?',
+        ),
         actions: [
           ShadButton.outline(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
           ShadButton.destructive(
-            key: const Key('confirmLogoutButton'),
+            key: ProfileKeys.confirmLogoutButton,
             onPressed: () {
               Navigator.pop(context);
               Navigator.pushAndRemoveUntil(

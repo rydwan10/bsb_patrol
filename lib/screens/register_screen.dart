@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../keys/patrol_keys_register.dart';
 import 'home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -77,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           icon: const Icon(LucideIcons.arrowLeft),
           onPressed: _currentStep > 0 ? _prevStep : () => Navigator.pop(context),
         ),
-        title: Text('Create Account', style: theme.textTheme.h4),
+        title: Text(key: RegisterKeys.registerAppBarTitle, 'Create Account', style: theme.textTheme.h4),
       ),
       body: SafeArea(
         child: Column(
@@ -137,6 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
+                key: RegisterKeys.stepCounter,
                 'Step ${_currentStep + 1} of ${_steps.length}',
                 style: theme.textTheme.muted,
               ),
@@ -157,7 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Personal Information', style: theme.textTheme.h3),
+        Text(key: RegisterKeys.step1Heading, 'Personal Information', style: theme.textTheme.h3),
         const SizedBox(height: 6),
         Text('Tell us a bit about yourself', style: theme.textTheme.muted),
         const SizedBox(height: 24),
@@ -169,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   ShadInputFormField(
-                    key: const Key('firstNameField'),
+                    key: RegisterKeys.firstNameField,
                     id: 'firstName',
                     label: const Text('First Name'),
                     placeholder: const Text('John'),
@@ -178,7 +180,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   ShadInputFormField(
-                    key: const Key('lastNameField'),
+                    key: RegisterKeys.lastNameField,
                     id: 'lastName',
                     label: const Text('Last Name'),
                     placeholder: const Text('Doe'),
@@ -187,7 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   ShadInputFormField(
-                    key: const Key('registerEmailField'),
+                    key: RegisterKeys.registerEmailField,
                     id: 'email',
                     label: const Text('Email'),
                     placeholder: const Text('john@example.com'),
@@ -202,7 +204,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   ShadInputFormField(
-                    key: const Key('phoneField'),
+                    key: RegisterKeys.phoneField,
                     id: 'phone',
                     label: const Text('Phone Number'),
                     placeholder: const Text('+1 (555) 000-0000'),
@@ -217,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         const SizedBox(height: 24),
         ShadButton(
-          key: const Key('nextStep1Button'),
+          key: RegisterKeys.nextStep1Button,
           width: double.infinity,
           onPressed: _nextStep,
           child: Row(
@@ -237,7 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Account Setup', style: theme.textTheme.h3),
+        Text(key: RegisterKeys.step2Heading, 'Account Setup', style: theme.textTheme.h3),
         const SizedBox(height: 6),
         Text('Create your login credentials', style: theme.textTheme.muted),
         const SizedBox(height: 24),
@@ -249,7 +251,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   ShadInputFormField(
-                    key: const Key('usernameField'),
+                    key: RegisterKeys.usernameField,
                     id: 'username',
                     label: const Text('Username'),
                     placeholder: const Text('johndoe'),
@@ -263,7 +265,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   ShadInputFormField(
-                    key: const Key('registerPasswordField'),
+                    key: RegisterKeys.registerPasswordField,
                     id: 'password',
                     label: const Text('Password'),
                     placeholder: const Text('Create a strong password'),
@@ -286,7 +288,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   ShadInputFormField(
-                    key: const Key('confirmPasswordField'),
+                    key: RegisterKeys.confirmPasswordField,
                     id: 'confirmPassword',
                     label: const Text('Confirm Password'),
                     placeholder: const Text('Re-enter your password'),
@@ -318,7 +320,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         const SizedBox(height: 24),
         ShadButton(
-          key: const Key('nextStep2Button'),
+          key: RegisterKeys.nextStep2Button,
           width: double.infinity,
           onPressed: _nextStep,
           child: Row(
@@ -338,7 +340,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Review & Submit', style: theme.textTheme.h3),
+        Text(key: RegisterKeys.step3Heading, 'Review & Submit', style: theme.textTheme.h3),
         const SizedBox(height: 6),
         Text('Confirm your information before submitting',
             style: theme.textTheme.muted),
@@ -355,10 +357,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               _buildReviewRow(theme, 'First Name',
-                  _formData['firstName'] ?? '—'),
-              _buildReviewRow(
-                  theme, 'Last Name', _formData['lastName'] ?? '—'),
-              _buildReviewRow(theme, 'Email', _formData['email'] ?? '—'),
+                  _formData['firstName'] ?? '—',
+                  valueKey: RegisterKeys.reviewFirstNameValue),
+              _buildReviewRow(theme, 'Last Name',
+                  _formData['lastName'] ?? '—',
+                  valueKey: RegisterKeys.reviewLastNameValue),
+              _buildReviewRow(theme, 'Email', _formData['email'] ?? '—',
+                  valueKey: RegisterKeys.reviewEmailValue),
               _buildReviewRow(theme, 'Phone', _formData['phone'] ?? '—'),
             ],
           ),
@@ -376,14 +381,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               _buildReviewRow(
-                  theme, 'Username', '@${_formData['username'] ?? '—'}'),
+                  theme, 'Username', '@${_formData['username'] ?? '—'}',
+                  valueKey: RegisterKeys.reviewUsernameValue),
               _buildReviewRow(theme, 'Password', '••••••••'),
             ],
           ),
         ),
         const SizedBox(height: 24),
         ShadButton(
-          key: const Key('submitButton'),
+          key: RegisterKeys.submitButton,
           width: double.infinity,
           onPressed: _isLoading ? null : _submit,
           child: _isLoading
@@ -412,7 +418,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _buildReviewRow(ShadThemeData theme, String label, String value) {
+  Widget _buildReviewRow(ShadThemeData theme, String label, String value,
+      {Key? valueKey}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
@@ -425,6 +432,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           Expanded(
             child: Text(value,
+                key: valueKey,
                 style:
                     theme.textTheme.p.copyWith(fontWeight: FontWeight.w500)),
           ),

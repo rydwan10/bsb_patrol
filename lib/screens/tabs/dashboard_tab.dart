@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../../keys/patrol_keys_home.dart';
+
 class DashboardTab extends StatelessWidget {
   const DashboardTab({super.key});
 
@@ -14,6 +16,7 @@ class DashboardTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            key: HomeKeys.dashboardHeading,
             'Dashboard',
             style: theme.textTheme.h2,
           ),
@@ -54,6 +57,7 @@ class DashboardTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    key: HomeKeys.dashboardWelcomeGreeting,
                     'Good morning, Officer!',
                     style: theme.textTheme.h4.copyWith(
                       color: theme.colorScheme.primaryForeground,

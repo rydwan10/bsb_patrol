@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../keys/patrol_keys_login.dart';
 import 'home_screen.dart';
 import 'register_screen.dart';
 
@@ -59,12 +60,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               Text(
+                key: LoginKeys.loginTitle,
                 'BSB Patrol',
                 style: theme.textTheme.h2,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 6),
               Text(
+                key: LoginKeys.loginSubtitle,
                 'Sign in to continue',
                 style: theme.textTheme.muted,
                 textAlign: TextAlign.center,
@@ -79,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ShadInputFormField(
-                          key: const Key('emailField'),
+                          key: LoginKeys.emailField,
                           id: 'email',
                           label: const Text('Email'),
                           placeholder: const Text('name@example.com'),
@@ -94,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 16),
                         ShadInputFormField(
-                          key: const Key('passwordField'),
+                          key: LoginKeys.passwordField,
                           id: 'password',
                           label: const Text('Password'),
                           placeholder: const Text('Enter your password'),
@@ -119,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 24),
                         ShadButton(
-                          key: const Key('loginButton'),
+                          key: LoginKeys.loginButton,
                           width: double.infinity,
                           onPressed: _isLoading ? null : _handleLogin,
                           child: _isLoading
@@ -147,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: theme.textTheme.muted,
                   ),
                   ShadButton.link(
-                    key: const Key('registerLink'),
+                    key: LoginKeys.registerLink,
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(

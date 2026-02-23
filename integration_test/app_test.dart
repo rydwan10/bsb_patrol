@@ -1,6 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 
+import 'package:bsb_patrol/keys/patrol_keys_explore.dart';
+import 'package:bsb_patrol/keys/patrol_keys_home.dart';
+import 'package:bsb_patrol/keys/patrol_keys_login.dart';
+import 'package:bsb_patrol/keys/patrol_keys_notifications.dart';
+import 'package:bsb_patrol/keys/patrol_keys_profile.dart';
+import 'package:bsb_patrol/keys/patrol_keys_register.dart';
 import 'package:bsb_patrol/main.dart';
 
 // Run all tests:
@@ -20,24 +26,24 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Verify login screen is visible
-        expect(find.text('BSB Patrol'), findsWidgets);
-        expect(find.text('Sign in to continue'), findsOneWidget);
+        expect(find.byKey(LoginKeys.loginTitle), findsOneWidget);
+        expect(find.byKey(LoginKeys.loginSubtitle), findsOneWidget);
 
         // Enter email
-        await $(#emailField).enterText('officer@bsbpatrol.com');
+        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
         await $.pumpAndSettle();
 
         // Enter password
-        await $(#passwordField).enterText('password123');
+        await $(LoginKeys.passwordField).enterText('password123');
         await $.pumpAndSettle();
 
         // Tap Sign In
-        await $(#loginButton).tap();
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Verify home screen is shown
-        expect(find.text('Dashboard'), findsOneWidget);
-        expect(find.text('Good morning, Officer!'), findsOneWidget);
+        expect(find.byKey(HomeKeys.dashboardHeading), findsOneWidget);
+        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
       },
     );
 
@@ -47,7 +53,7 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Tap Sign In without filling fields
-        await $(#loginButton).tap();
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Validation errors should appear
@@ -61,9 +67,9 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(#emailField).enterText('not-an-email');
-        await $(#passwordField).enterText('password123');
-        await $(#loginButton).tap();
+        await $(LoginKeys.emailField).enterText('not-an-email');
+        await $(LoginKeys.passwordField).enterText('password123');
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         expect(find.text('Enter a valid email address'), findsOneWidget);
@@ -76,13 +82,13 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Tap register link
-        await $(#registerLink).tap();
+        await $(LoginKeys.registerLink).tap();
         await $.pumpAndSettle();
 
         // Verify register screen is shown at step 1
-        expect(find.text('Create Account'), findsOneWidget);
-        expect(find.text('Personal Information'), findsOneWidget);
-        expect(find.text('Step 1 of 3'), findsOneWidget);
+        expect(find.byKey(RegisterKeys.registerAppBarTitle), findsOneWidget);
+        expect(find.byKey(RegisterKeys.step1Heading), findsOneWidget);
+        expect(find.byKey(RegisterKeys.stepCounter), findsOneWidget);
       },
     );
 
@@ -91,11 +97,11 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(#registerLink).tap();
+        await $(LoginKeys.registerLink).tap();
         await $.pumpAndSettle();
 
         // Try to proceed without filling step 1
-        await $(#nextStep1Button).tap();
+        await $(RegisterKeys.nextStep1Button).tap();
         await $.pumpAndSettle();
 
         // Validation errors
@@ -109,51 +115,49 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Navigate to register
-        await $(#registerLink).tap();
+        await $(LoginKeys.registerLink).tap();
         await $.pumpAndSettle();
 
         // ── Step 1: Personal Info ──
-        expect(find.text('Step 1 of 3'), findsOneWidget);
+        expect(find.byKey(RegisterKeys.step1Heading), findsOneWidget);
 
-        await $(#firstNameField).enterText('Jane');
+        await $(RegisterKeys.firstNameField).enterText('Jane');
         await $.pumpAndSettle();
-        await $(#lastNameField).enterText('Smith');
+        await $(RegisterKeys.lastNameField).enterText('Smith');
         await $.pumpAndSettle();
-        await $(#registerEmailField).enterText('jane@bsbpatrol.com');
+        await $(RegisterKeys.registerEmailField).enterText('jane@bsbpatrol.com');
         await $.pumpAndSettle();
-        await $(#phoneField).enterText('+1 555 000 1234');
+        await $(RegisterKeys.phoneField).enterText('+1 555 000 1234');
         await $.pumpAndSettle();
 
-        await $(#nextStep1Button).tap();
+        await $(RegisterKeys.nextStep1Button).tap();
         await $.pumpAndSettle();
 
         // ── Step 2: Account Setup ──
-        expect(find.text('Step 2 of 3'), findsOneWidget);
-        expect(find.text('Account Setup'), findsOneWidget);
+        expect(find.byKey(RegisterKeys.step2Heading), findsOneWidget);
 
-        await $(#usernameField).enterText('janesmith');
+        await $(RegisterKeys.usernameField).enterText('janesmith');
         await $.pumpAndSettle();
-        await $(#registerPasswordField).enterText('SecurePass1!');
+        await $(RegisterKeys.registerPasswordField).enterText('SecurePass1!');
         await $.pumpAndSettle();
-        await $(#confirmPasswordField).enterText('SecurePass1!');
+        await $(RegisterKeys.confirmPasswordField).enterText('SecurePass1!');
         await $.pumpAndSettle();
 
-        await $(#nextStep2Button).tap();
+        await $(RegisterKeys.nextStep2Button).tap();
         await $.pumpAndSettle();
 
         // ── Step 3: Review ──
-        expect(find.text('Step 3 of 3'), findsOneWidget);
-        expect(find.text('Review & Submit'), findsOneWidget);
-        expect(find.text('Jane'), findsOneWidget);
-        expect(find.text('Smith'), findsOneWidget);
-        expect(find.text('jane@bsbpatrol.com'), findsOneWidget);
-        expect(find.text('@janesmith'), findsOneWidget);
+        expect(find.byKey(RegisterKeys.step3Heading), findsOneWidget);
+        expect(find.byKey(RegisterKeys.reviewFirstNameValue), findsOneWidget);
+        expect(find.byKey(RegisterKeys.reviewLastNameValue), findsOneWidget);
+        expect(find.byKey(RegisterKeys.reviewEmailValue), findsOneWidget);
+        expect(find.byKey(RegisterKeys.reviewUsernameValue), findsOneWidget);
 
-        await $(#submitButton).tap();
+        await $(RegisterKeys.submitButton).tap();
         await $.pumpAndSettle();
 
         // After successful registration, lands on home screen
-        expect(find.text('Dashboard'), findsOneWidget);
+        expect(find.byKey(HomeKeys.dashboardHeading), findsOneWidget);
       },
     );
 
@@ -162,22 +166,22 @@ void main() {
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
 
-        await $(#registerLink).tap();
+        await $(LoginKeys.registerLink).tap();
         await $.pumpAndSettle();
 
         // Fill step 1
-        await $(#firstNameField).enterText('Test');
-        await $(#lastNameField).enterText('User');
-        await $(#registerEmailField).enterText('test@test.com');
-        await $(#phoneField).enterText('+1 555 000 0000');
-        await $(#nextStep1Button).tap();
+        await $(RegisterKeys.firstNameField).enterText('Test');
+        await $(RegisterKeys.lastNameField).enterText('User');
+        await $(RegisterKeys.registerEmailField).enterText('test@test.com');
+        await $(RegisterKeys.phoneField).enterText('+1 555 000 0000');
+        await $(RegisterKeys.nextStep1Button).tap();
         await $.pumpAndSettle();
 
         // Step 2 with mismatched passwords
-        await $(#usernameField).enterText('testuser');
-        await $(#registerPasswordField).enterText('Password123!');
-        await $(#confirmPasswordField).enterText('DifferentPass!');
-        await $(#nextStep2Button).tap();
+        await $(RegisterKeys.usernameField).enterText('testuser');
+        await $(RegisterKeys.registerPasswordField).enterText('Password123!');
+        await $(RegisterKeys.confirmPasswordField).enterText('DifferentPass!');
+        await $(RegisterKeys.nextStep2Button).tap();
         await $.pumpAndSettle();
 
         expect(find.text('Passwords do not match'), findsOneWidget);
@@ -190,35 +194,34 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login first
-        await $(#emailField).enterText('officer@bsbpatrol.com');
-        await $(#passwordField).enterText('password123');
-        await $(#loginButton).tap();
+        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
+        await $(LoginKeys.passwordField).enterText('password123');
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Verify on Dashboard tab
-        expect(find.text('Good morning, Officer!'), findsOneWidget);
+        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
 
         // Navigate to Explore tab
-        await $(find.text('Explore')).tap();
+        await $(HomeKeys.exploreTab).tap();
         await $.pumpAndSettle();
-        expect(find.text('Browse patrol zones, officers & reports'),
-            findsOneWidget);
+        expect(find.byKey(ExploreKeys.exploreSubtitle), findsOneWidget);
 
         // Navigate to Alerts tab
-        await $(find.text('Alerts')).tap();
+        await $(HomeKeys.notificationsTab).tap();
         await $.pumpAndSettle();
-        expect(find.text('Notifications'), findsWidgets);
+        expect(find.byKey(NotificationsKeys.notificationsHeading), findsOneWidget);
 
         // Navigate to Profile tab
-        await $(find.text('Profile')).tap();
+        await $(HomeKeys.profileTab).tap();
         await $.pumpAndSettle();
-        expect(find.text('John Doe'), findsOneWidget);
-        expect(find.text('@johndoe'), findsOneWidget);
+        expect(find.byKey(ProfileKeys.profileName), findsOneWidget);
+        expect(find.byKey(ProfileKeys.profileUsername), findsOneWidget);
 
         // Navigate back to Dashboard
-        await $(find.text('Dashboard')).tap();
+        await $(HomeKeys.dashboardTab).tap();
         await $.pumpAndSettle();
-        expect(find.text('Good morning, Officer!'), findsOneWidget);
+        expect(find.byKey(HomeKeys.dashboardWelcomeGreeting), findsOneWidget);
       },
     );
 
@@ -228,34 +231,33 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login
-        await $(#emailField).enterText('officer@bsbpatrol.com');
-        await $(#passwordField).enterText('password123');
-        await $(#loginButton).tap();
+        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
+        await $(LoginKeys.passwordField).enterText('password123');
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Go to Profile tab
-        await $(find.text('Profile')).tap();
+        await $(HomeKeys.profileTab).tap();
         await $.pumpAndSettle();
 
         // Scroll the logout button into view before tapping
-        await $(#logoutButton).scrollTo();
+        await $(ProfileKeys.logoutButton).scrollTo();
         await $.pumpAndSettle();
 
         // Tap Sign Out
-        await $(#logoutButton).tap();
+        await $(ProfileKeys.logoutButton).tap();
         await $.pumpAndSettle();
 
         // Confirm dialog appears
-        expect(find.text('Sign Out'), findsWidgets);
-        expect(find.text('Are you sure you want to sign out of BSB Patrol?'),
-            findsOneWidget);
+        expect(find.byKey(ProfileKeys.logoutDialogTitle), findsOneWidget);
+        expect(find.byKey(ProfileKeys.logoutDialogMessage), findsOneWidget);
 
         // Confirm logout
-        await $(#confirmLogoutButton).tap();
+        await $(ProfileKeys.confirmLogoutButton).tap();
         await $.pumpAndSettle();
 
         // Back on login screen
-        expect(find.text('Sign in to continue'), findsOneWidget);
+        expect(find.byKey(LoginKeys.loginSubtitle), findsOneWidget);
       },
     );
 
@@ -265,25 +267,25 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login
-        await $(#emailField).enterText('officer@bsbpatrol.com');
-        await $(#passwordField).enterText('password123');
-        await $(#loginButton).tap();
+        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
+        await $(LoginKeys.passwordField).enterText('password123');
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Go to Alerts tab
-        await $(find.text('Alerts')).tap();
+        await $(HomeKeys.notificationsTab).tap();
         await $.pumpAndSettle();
 
         // Verify unread badge exists
-        expect(find.text('3 new'), findsOneWidget);
+        expect(find.byKey(NotificationsKeys.unreadCountBadge), findsOneWidget);
 
         // Tap mark all read
-        await $(find.text('Mark all read')).tap();
+        await $(NotificationsKeys.markAllReadButton).tap();
         await $.pumpAndSettle();
 
-        // Badge should be gone
-        expect(find.text('3 new'), findsNothing);
-        expect(find.text('Mark all read'), findsNothing);
+        // Badge and button should be gone
+        expect(find.byKey(NotificationsKeys.unreadCountBadge), findsNothing);
+        expect(find.byKey(NotificationsKeys.markAllReadButton), findsNothing);
       },
     );
   });

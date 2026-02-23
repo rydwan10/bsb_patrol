@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../../keys/patrol_keys_explore.dart';
+
 class ExploreTab extends StatefulWidget {
   const ExploreTab({super.key});
 
@@ -52,11 +54,14 @@ class _ExploreTabState extends State<ExploreTab> {
             children: [
               Text('Explore', style: theme.textTheme.h3),
               const SizedBox(height: 4),
-              Text('Browse patrol zones, officers & reports',
-                  style: theme.textTheme.muted),
+              Text(
+                key: ExploreKeys.exploreSubtitle,
+                'Browse patrol zones, officers & reports',
+                style: theme.textTheme.muted,
+              ),
               const SizedBox(height: 16),
               ShadInput(
-                key: const Key('exploreSearchField'),
+                key: ExploreKeys.exploreSearchField,
                 placeholder: const Text('Search...'),
                 leading: const Padding(
                   padding: EdgeInsets.only(left: 8),

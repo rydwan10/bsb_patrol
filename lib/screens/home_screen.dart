@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
+import '../keys/patrol_keys_home.dart';
 import 'tabs/dashboard_tab.dart';
 import 'tabs/explore_tab.dart';
 import 'tabs/notifications_tab.dart';
@@ -18,22 +19,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const _tabs = [
     _TabItem(
-      key: Key('dashboardTab'),
+      key: HomeKeys.dashboardTab,
       icon: LucideIcons.layoutDashboard,
       label: 'Dashboard',
     ),
     _TabItem(
-      key: Key('exploreTab'),
+      key: HomeKeys.exploreTab,
       icon: LucideIcons.compass,
       label: 'Explore',
     ),
     _TabItem(
-      key: Key('notificationsTab'),
+      key: HomeKeys.notificationsTab,
       icon: LucideIcons.bell,
       label: 'Alerts',
     ),
     _TabItem(
-      key: Key('profileTab'),
+      key: HomeKeys.profileTab,
       icon: LucideIcons.user,
       label: 'Profile',
     ),
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         child: NavigationBar(
-          key: const Key('bottomNavBar'),
+          key: HomeKeys.bottomNavBar,
           selectedIndex: _selectedIndex,
           onDestinationSelected: (index) =>
               setState(() => _selectedIndex = index),
