@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 import '../../keys/patrol_keys_profile.dart';
@@ -15,7 +16,7 @@ class ProfileTab extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          _buildProfileHeader(theme),
+          _buildProfileHeader(context, theme),
           const SizedBox(height: 24),
           _buildStatsRow(theme),
           const SizedBox(height: 24),
@@ -61,26 +62,53 @@ class ProfileTab extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileHeader(ShadThemeData theme) {
+  Widget _buildProfileHeader(BuildContext context, ShadThemeData theme) {
     return ShadCard(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  'JD',
-                  style: theme.textTheme.h3.copyWith(
-                    color: theme.colorScheme.primaryForeground,
+            GestureDetector(
+              key: const Key('changeProfilePictureButton'),
+              onTap: () => _requestFileAccessPermission(context),
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'JD',
+                        style: theme.textTheme.h3.copyWith(
+                          color: theme.colorScheme.primaryForeground,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.background,
+                      shape: BoxShape.circle,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      LucideIcons.camera,
+                      size: 14,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 12),
@@ -231,6 +259,33 @@ class ProfileTab extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _requestFileAccessPermission(BuildContext context) async {
+    final statuses = await [Permission.photos, Permission.storage].request();
+    final PermissionStatus? status =
+        statuses[Permission.photos] ?? statuses[Permission.storage];
+
+    if (status == null) return;
+
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    if (messenger == null) return;
+
+    if (status.isGranted) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('File access granted. You can now pick a photo.'),
+        ),
+      );
+    } else if (status.isDenied ||
+        status.isPermanentlyDenied ||
+        status.isRestricted) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('File access denied.'),
+        ),
+      );
+    }
   }
 }
 

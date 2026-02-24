@@ -206,6 +206,40 @@ void main() {
     );
 
     patrolTest(
+      'Profile — accept system file access permission when changing profile picture',
+      ($) async {
+        await $.pumpWidgetAndSettle(const MyApp());
+
+        // Login
+        await $(#emailField).enterText('officer@bsbpatrol.com');
+        await $(#passwordField).enterText('password123');
+        await $(#loginButton).tap();
+        await $.pumpAndSettle();
+
+        // Go to Profile tab
+        await $(find.text('Profile')).tap();
+        await $.pumpAndSettle();
+
+        // Tap on the avatar to trigger a native permission dialog
+        await $(#changeProfilePictureButton).tap();
+        await $.pumpAndSettle();
+
+        // Handle the native system permission dialog with Patrol - Android Only
+        if (await $.platformAutomator.android.isPermissionDialogVisible()) {
+          await $.platformAutomator.android.grantPermissionWhenInUse();
+        }
+
+        // Give the app a moment to react to the granted permission
+        await $.pump(const Duration(seconds: 1));
+
+        // We only assert that we're still on the Profile screen;
+        // the system dialog has been handled without crashing.
+        expect(find.text('John Doe'), findsOneWidget);
+        expect(find.text('@johndoe'), findsOneWidget);
+      },
+    );
+
+    patrolTest(
       'Notifications — mark all as read',
       ($) async {
         await $.pumpWidgetAndSettle(const MyApp());
