@@ -125,7 +125,8 @@ void main() {
         await $.pumpAndSettle();
         await $(RegisterKeys.lastNameField).enterText('Smith');
         await $.pumpAndSettle();
-        await $(RegisterKeys.registerEmailField).enterText('jane@bsbpatrol.com');
+        await $(RegisterKeys.registerEmailField)
+            .enterText('jane@bsbpatrol.com');
         await $.pumpAndSettle();
         await $(RegisterKeys.phoneField).enterText('+1 555 000 1234');
         await $.pumpAndSettle();
@@ -210,7 +211,8 @@ void main() {
         // Navigate to Alerts tab
         await $(HomeKeys.notificationsTab).tap();
         await $.pumpAndSettle();
-        expect(find.byKey(NotificationsKeys.notificationsHeading), findsOneWidget);
+        expect(
+            find.byKey(NotificationsKeys.notificationsHeading), findsOneWidget);
 
         // Navigate to Profile tab
         await $(HomeKeys.profileTab).tap();
@@ -267,17 +269,17 @@ void main() {
         await $.pumpWidgetAndSettle(const MyApp());
 
         // Login
-        await $(#emailField).enterText('officer@bsbpatrol.com');
-        await $(#passwordField).enterText('password123');
-        await $(#loginButton).tap();
+        await $(LoginKeys.emailField).enterText('officer@bsbpatrol.com');
+        await $(LoginKeys.passwordField).enterText('password123');
+        await $(LoginKeys.loginButton).tap();
         await $.pumpAndSettle();
 
         // Go to Profile tab
-        await $(find.text('Profile')).tap();
+        await $(HomeKeys.profileTab).tap();
         await $.pumpAndSettle();
 
         // Tap on the avatar to trigger a native permission dialog
-        await $(#changeProfilePictureButton).tap();
+        await $(ProfileKeys.changeProfilePictureButton).tap();
         await $.pumpAndSettle();
 
         // Handle the native system permission dialog with Patrol - Android Only
@@ -290,8 +292,8 @@ void main() {
 
         // We only assert that we're still on the Profile screen;
         // the system dialog has been handled without crashing.
-        expect(find.text('John Doe'), findsOneWidget);
-        expect(find.text('@johndoe'), findsOneWidget);
+        expect(find.byKey(ProfileKeys.profileName), findsOneWidget);
+        expect(find.byKey(ProfileKeys.profileUsername), findsOneWidget);
       },
     );
 

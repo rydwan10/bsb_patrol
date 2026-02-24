@@ -22,8 +22,8 @@ class ProfileTab extends StatelessWidget {
           const SizedBox(height: 24),
           _buildMenuSection(theme, 'Account', [
             _MenuItem(LucideIcons.user, 'Edit Profile', 'Update your details'),
-            _MenuItem(LucideIcons.bell, 'Notification Settings',
-                'Manage alerts'),
+            _MenuItem(
+                LucideIcons.bell, 'Notification Settings', 'Manage alerts'),
             _MenuItem(
                 LucideIcons.lock, 'Change Password', 'Update credentials'),
           ]),
@@ -31,15 +31,15 @@ class ProfileTab extends StatelessWidget {
           _buildMenuSection(theme, 'Patrol', [
             _MenuItem(
                 LucideIcons.calendar, 'My Schedule', 'View shift calendar'),
-            _MenuItem(LucideIcons.fileText, 'My Reports',
-                'All submitted reports'),
+            _MenuItem(
+                LucideIcons.fileText, 'My Reports', 'All submitted reports'),
             _MenuItem(LucideIcons.award, 'Achievements', 'Badges & milestones'),
           ]),
           const SizedBox(height: 16),
           _buildMenuSection(theme, 'Support', [
             _MenuItem(LucideIcons.info, 'Help Center', 'FAQs & guides'),
-            _MenuItem(LucideIcons.messageSquare, 'Contact Support',
-                'Get assistance'),
+            _MenuItem(
+                LucideIcons.messageSquare, 'Contact Support', 'Get assistance'),
           ]),
           const SizedBox(height: 24),
           ShadButton.destructive(
@@ -69,7 +69,7 @@ class ProfileTab extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              key: const Key('changeProfilePictureButton'),
+              key: ProfileKeys.changeProfilePictureButton,
               onTap: () => _requestFileAccessPermission(context),
               child: Stack(
                 alignment: Alignment.bottomRight,
@@ -112,9 +112,15 @@ class ProfileTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text(key: ProfileKeys.profileName, 'John Doe', style: theme.textTheme.h4),
+            Text(
+                key: ProfileKeys.profileName,
+                'John Doe',
+                style: theme.textTheme.h4),
             const SizedBox(height: 4),
-            Text(key: ProfileKeys.profileUsername, '@johndoe', style: theme.textTheme.muted),
+            Text(
+                key: ProfileKeys.profileUsername,
+                '@johndoe',
+                style: theme.textTheme.muted),
             const SizedBox(height: 8),
             ShadBadge(
               child: Row(
@@ -155,8 +161,7 @@ class ProfileTab extends StatelessWidget {
             Text(value,
                 style:
                     theme.textTheme.h4.copyWith(fontWeight: FontWeight.bold)),
-            Text(label,
-                style: theme.textTheme.muted.copyWith(fontSize: 11)),
+            Text(label, style: theme.textTheme.muted.copyWith(fontSize: 11)),
           ],
         ),
       ),
@@ -188,8 +193,8 @@ class ProfileTab extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: theme.colorScheme.muted
-                                .withValues(alpha: 0.3),
+                            color:
+                                theme.colorScheme.muted.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Icon(item.icon, size: 16),
@@ -200,8 +205,8 @@ class ProfileTab extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(item.title,
-                                  style: theme.textTheme.p.copyWith(
-                                      fontWeight: FontWeight.w500)),
+                                  style: theme.textTheme.p
+                                      .copyWith(fontWeight: FontWeight.w500)),
                               Text(item.subtitle,
                                   style: theme.textTheme.muted
                                       .copyWith(fontSize: 12)),
@@ -209,8 +214,7 @@ class ProfileTab extends StatelessWidget {
                           ),
                         ),
                         Icon(LucideIcons.chevronRight,
-                            size: 16,
-                            color: theme.colorScheme.mutedForeground),
+                            size: 16, color: theme.colorScheme.mutedForeground),
                       ],
                     ),
                   ),
@@ -233,7 +237,7 @@ class ProfileTab extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showShadDialog(
       context: context,
-        builder: (context) => ShadDialog(
+      builder: (context) => ShadDialog(
         title: const Text(key: ProfileKeys.logoutDialogTitle, 'Sign Out'),
         description: const Text(
           key: ProfileKeys.logoutDialogMessage,

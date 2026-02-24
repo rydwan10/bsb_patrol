@@ -7,4 +7,5 @@ abstract final class ProfileKeys {
   static const logoutDialogTitle = Key('logoutDialogTitle');
   static const logoutDialogMessage = Key('logoutDialogMessage');
   static const confirmLogoutButton = Key('confirmLogoutButton');
+  static const changeProfilePictureButton = Key('changeProfilePictureButton');
 }
